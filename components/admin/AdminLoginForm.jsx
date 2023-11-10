@@ -1,17 +1,61 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {useForm} from 'react-hook-form'
-import { InputBox, Button } from '../index'
+import authService from '@/backend/auth'
+import  InputBox from '../form/InputBox'
+import  Button from '../form/Button'
+import Spinner  from '../Spinner'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation';
+import { useDispatch,useSelector } from 'react-redux'
+import { login as authlogin } from '@/redux/authSlice'
 
-export default function AdminLoginForm() {
+const AdminLoginForm = () => {
+  const { push } = useRouter();
+  const [loading, setLoading] = useState(false)
     const {register, handleSubmit,formState: { errors }} = useForm()
+    const dispatch = useDispatch()
 
-    const login = async()=>{
+    useEffect(()=>{
+      authService.getCurrentUser().then((userData)=>{
+        if(userData){
+          dispatch(authlogin(userData))
+         push("/admin/dashboard")
+        }
+      })
+    },[])
 
+    const userData = useSelector((state)=>state.auth)
+    console.log(userData);
+
+    const login = async (data)=>{
+      console.log(data);
+      try {
+        setLoading(true)
+       const session = await authService.login(data)
+       if(session){
+        const userData = await authService.getCurrentUser()
+        if(userData){
+          dispatch(authlogin(userData))
+          toast.success("Login Successfully")
+          setTimeout(() => {
+            redirect.push("/admin/dashboard")
+          }, 500);
+        }
+       }else{
+        toast.error("invalid credentials!")
+       }
+      } catch (error) {
+        console.log(error);
+        toast.error("Somthing went wrong!")
+      } finally{
+        setLoading(false)
+      }
     }
 
   return (
    <>
+   {loading && <Spinner/>}
     <div className='w-full h-screen bg-black/10'>
         <div className='flex justify-center items-center h-full'>
         <div className='w-full m-3 md:w-1/4 p-3 -mt-48'>
@@ -37,7 +81,7 @@ export default function AdminLoginForm() {
                 />
                 
                 <Button 
-                // disabled={loading}
+                disabled={loading}
                   type='submit'
                    className='w-full disabled:opacity-80'
                     btnName="Login" />
@@ -48,3 +92,6 @@ export default function AdminLoginForm() {
    </>
   )
 }
+
+
+export default AdminLoginForm
