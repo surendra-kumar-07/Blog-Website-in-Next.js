@@ -19,7 +19,7 @@ export default function Home() {
                </span> 
 
               </p>
-              <button class="bg-indigo-500 shadow-lg shadow-indigo-500/50 rounded-md px-3 py-1 text-white mt-3">Explore new batches  ➡</button>
+              <button className="bg-indigo-500 shadow-lg shadow-indigo-500/50 rounded-md px-3 py-1 text-white mt-3">Explore new batches  ➡</button>
             </div>
             <div className='p-3 flex justify-center'>
                 <Image
@@ -46,7 +46,7 @@ export default function Home() {
                </span> 
 
               </p>
-              <button class="bg-indigo-500 shadow-lg shadow-indigo-500/50 rounded-md px-3 py-1 text-white mt-3">Explore new batches  ➡</button>
+              <button className="bg-indigo-500 shadow-lg shadow-indigo-500/50 rounded-md px-3 py-1 text-white mt-3">Explore new batches  ➡</button>
             </div>
             <div className='p-3 flex justify-center'>
             <Image
@@ -73,7 +73,7 @@ export default function Home() {
                </span> 
 
               </p>
-              <button class="bg-indigo-500 shadow-lg shadow-indigo-500/50 rounded-md px-3 py-1 text-white mt-3">Explore new batches  ➡</button>
+              <button className="bg-indigo-500 shadow-lg shadow-indigo-500/50 rounded-md px-3 py-1 text-white mt-3">Explore new batches  ➡</button>
             </div>
             <div className='p-3 flex justify-center'>
             <Image
